@@ -1,0 +1,84 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool: Default
+
+steps:
+  - task: Bash@3
+    displayName: 'Step 1: Print Tools Directory'
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Print the path to the tools directory
+        echo "Agent.ToolsDirectory: $(Agent.ToolsDirectory)"
+
+        # Create the /opt/mysharepipeline directory
+        mkdir -p /home/sagarkalankar/mnt
+
+  - task: Bash@3
+    displayName: 'Step 2: Print Overrided Tools Directory'
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Print the overridden path to the tools directory
+        echo "Overridden Agent Tools Directory AGENT_TOOLSDIRECTORY: $AGENT_TOOLSDIRECTORY"
+        echo "Agent Tools Directory Agent.ToolsDirectory: $(Agent.ToolsDirectory)"
+        ls
+        pwd   
+  
+  - task: Bash@3
+    displayName: 'Step 3: Navigate to /home/sagarkalankar/_work/_tool and do ls'
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Navigate to the specified path
+        cd /home/sagarkalankar/_work/_tool
+
+        # List the contents of the directory
+        ls
+        
+  - task: NodeTool@0
+    displayName: 'Step 5: Install Node.js'
+    inputs:
+      versionSpec: '14.x'
+      
+  - task: Bash@3
+    displayName: 'Step 6: Navigate to /home/sagarkalankar/_work/_tool and do ls'
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Navigate to the specified path
+        cd /home/sagarkalankar/_work/_tool
+
+        # List the contents of the directory
+        ls      
+
+  - task: Bash@3
+    displayName: 'Step 7: Navigate to /home/sagarkalankar/mnt and do ls'
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Navigate to the specified path
+        cd /home/sagarkalankar/mnt
+
+        # List the contents of the directory
+        ls  
+        pwd
+
+  - task: Bash@3
+    displayName: 'Step 8: View Directory Permissions'
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Navigate to the specified path
+        cd /home/sagarkalankar/mnt
+
+        # List directory contents with detailed information including permissions
+        ls -la        
+
+
