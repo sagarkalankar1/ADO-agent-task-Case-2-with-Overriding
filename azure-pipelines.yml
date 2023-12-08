@@ -21,7 +21,18 @@ steps:
         mkdir -p /home/sagarkalankar/mnt
 
   - task: Bash@3
-    displayName: 'Step 2: Print Overrided Tools Directory'
+    displayName: 'Step 2: Override Tools Directory'
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Override the tools directory with a custom path
+        export AGENT_TOOLSDIRECTORY=/home/sagarkalankar/mnt
+
+        # Print the overridden path to the tools directory
+        echo "Overridden Agent Tools Directory AGENT_TOOLSDIRECTORY: $AGENT_TOOLSDIRECTORY"
+        echo "Agent Tools Directory Agent.ToolsDirectory: $(Agent.ToolsDirectory)"
+  - task: Bash@3
+    displayName: 'Step 3: Print Overrided Tools Directory'
     inputs:
       targetType: 'inline'
       script: |
@@ -32,7 +43,7 @@ steps:
         pwd   
   
   - task: Bash@3
-    displayName: 'Step 3: Navigate to /home/sagarkalankar/_work/_tool and do ls'
+    displayName: 'Step 4: Navigate to /home/sagarkalankar/_work/_tool and do ls'
     inputs:
       targetType: 'inline'
       script: |
